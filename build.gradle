@@ -55,7 +55,7 @@ uploadArchives {
         mavenDeployer {
             /*beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }*/
 
-            if(project.hasProperty("ossrhsytmNexusUser") && project.hasProperty("ossrhPassword")) {
+            if(project.hasProperty("sytmNexusUser") && project.hasProperty("sytmNexusPassword")) {
                 repository(url: "https://repo.sytm.de/repository/maven-releases/") {
                     authentication(userName: sytmNexusUser, password: sytmNexusPassword)
                 }
