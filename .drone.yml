@@ -4,11 +4,11 @@ type: docker
 
 steps:
   - name: test
-    image: gradle:latest
+    image: gradle:5.4.1
     commands:
       - gradle test
   - name: deploy
-    image: gradle:latest
+    image: gradle:5.4.1
     environment:
       SYTM_NEXUS_USER:
         from_secret: repo_username
