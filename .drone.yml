@@ -16,6 +16,10 @@ steps:
         from_secret: repo_password
     commands:
       - gradle uploadArchives -PsytmNexusUser=$SYTM_NEXUS_USER -PsytmNexusPassword=$SYTM_NEXUS_PASSWORD
+    when:
+      event:
+        exclude:
+          - pull_request
 
 trigger:
   event:
