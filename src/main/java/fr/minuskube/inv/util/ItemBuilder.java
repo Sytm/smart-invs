@@ -68,7 +68,7 @@ public class ItemBuilder {
      * Create a new ItemBuilder instance creating an ItemStack with the given material and amount
      *
      * @param material The material to use for the ItemStack
-     * @param amount The amount of the item that should be used
+     * @param amount   The amount of the item that should be used
      * @return A new ItemBuilder instance
      */
     public static ItemBuilder builder(Material material, int amount) {
@@ -204,7 +204,8 @@ public class ItemBuilder {
                 meta = lam;
                 break;
             default:
-                throw new IllegalStateException("To be able to use ItemBuilder#color(c) the material MUST be either LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS or LEATHER_BOOTS");
+                throw new IllegalStateException(
+                        "To be able to use ItemBuilder#color(c) the material MUST be either LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS or LEATHER_BOOTS");
         }
         return this;
     }
@@ -213,7 +214,7 @@ public class ItemBuilder {
      * Adds an enchantment directly to the item stack without level restrictions
      *
      * @param enchantment The enchantment to add
-     * @param level The level of the enchantment
+     * @param level       The level of the enchantment
      * @return <code>this</code> instance
      */
     public ItemBuilder enchantment(Enchantment enchantment, int level) {

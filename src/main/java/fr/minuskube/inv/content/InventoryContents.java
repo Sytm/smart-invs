@@ -109,9 +109,9 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#newIterator(String, SlotIterator.Type, int, int)},
      * but using a {@link SlotPos} instead.
      *
-     * @param id          the id of the iterator
-     * @param type        the type of the iterator
-     * @param startPos    the starting position of the iterator
+     * @param id       the id of the iterator
+     * @param type     the type of the iterator
+     * @param startPos the starting position of the iterator
      * @return A new SlotIterator with the given parameters
      * @see InventoryContents#newIterator(String, SlotIterator.Type, int, int)
      */
@@ -121,8 +121,8 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#newIterator(SlotIterator.Type, int, int)},
      * but using a {@link SlotPos} instead.
      *
-     * @param type        the type of the iterator
-     * @param startPos    the starting position of the iterator
+     * @param type     the type of the iterator
+     * @param startPos the starting position of the iterator
      * @return A new SlotIterator with the given parameters
      * @see InventoryContents#newIterator(SlotIterator.Type, int, int)
      */
@@ -138,11 +138,11 @@ public interface InventoryContents {
      */
     ClickableItem[][] all();
 
-	/**
-	 * Returns a list of all the slots in the inventory.
-	 *
-	 * @return the inventory slots
-	 */
+    /**
+     * Returns a list of all the slots in the inventory.
+     *
+     * @return the inventory slots
+     */
     List<SlotPos> slots();
 
     /**
@@ -371,7 +371,7 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#fillRect(int, int, ClickableItem)},
      * but with {@link SlotPos} instead of the indexes.
      *
-     * @param fromRow    the row of the first corner of the rect 
+     * @param fromRow    the row of the first corner of the rect
      * @param fromColumn the column of the first corner of the rect
      * @param toRow      the row of the second corner of the rect
      * @param toColumn   the column of the second corner of the rect
@@ -380,13 +380,13 @@ public interface InventoryContents {
      * @see InventoryContents#fillRect(int, int, ClickableItem)
      */
     InventoryContents fillRect(int fromRow, int fromColumn,
-                               int toRow, int toColumn, ClickableItem item);
+            int toRow, int toColumn, ClickableItem item);
 
     /**
      * Same as {@link InventoryContents#fillRect(int, int, ClickableItem)},
      * but with rows and columns instead of the indexes.
      *
-     * @param fromPos the first corner of the rect 
+     * @param fromPos the first corner of the rect
      * @param toPos   the second corner of the rect
      * @param item    the item to fill the rect with
      * @return <code>this</code>, for chained calls
@@ -606,14 +606,16 @@ public interface InventoryContents {
      * Makes a slot editable, which enables the player to
      * put items in and take items out of the inventory in the
      * specified slot.
-     * @param slot The slot to set editable
+     *
+     * @param slot     The slot to set editable
      * @param editable {@code true} to make a slot editable, {@code false}
-     *        to make it 'static' again.
+     *                 to make it 'static' again.
      */
     void setEditable(SlotPos slot, boolean editable);
 
     /**
      * Returns if a given slot is editable or not.
+     *
      * @param slot The slot to check
      * @return {@code true} if the editable.
      * @see #setEditable(SlotPos, boolean)
@@ -687,7 +689,7 @@ public interface InventoryContents {
         public List<SlotPos> slots() {
             List<SlotPos> slotPos = new ArrayList<>();
             for (int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[0].length; column++) {
+                for (int column = 0; column < contents[0].length; column++) {
                     slotPos.add(SlotPos.of(row, column));
                 }
             }
@@ -696,9 +698,9 @@ public interface InventoryContents {
 
         @Override
         public Optional<SlotPos> firstEmpty() {
-            for(int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[0].length; column++) {
-                    if(!this.get(row, column).isPresent())
+            for (int row = 0; row < contents.length; row++) {
+                for (int column = 0; column < contents[0].length; column++) {
+                    if (!this.get(row, column).isPresent())
                         return Optional.of(new SlotPos(row, column));
                 }
             }
@@ -715,9 +717,9 @@ public interface InventoryContents {
 
         @Override
         public Optional<ClickableItem> get(int row, int column) {
-            if(row < 0 || row >= contents.length)
+            if (row < 0 || row >= contents.length)
                 return Optional.empty();
-            if(column < 0 || column >= contents[row].length)
+            if (column < 0 || column >= contents[row].length)
                 return Optional.empty();
 
             return Optional.ofNullable(contents[row][column]);
@@ -737,9 +739,9 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents set(int row, int column, ClickableItem item) {
-            if(row < 0 || row >= contents.length)
+            if (row < 0 || row >= contents.length)
                 return this;
-            if(column < 0 || column >= contents[row].length)
+            if (column < 0 || column >= contents[row].length)
                 return this;
 
             contents[row][column] = item;
@@ -754,9 +756,9 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents add(ClickableItem item) {
-            for(int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[0].length; column++) {
-                    if(contents[row][column] == null) {
+            for (int row = 0; row < contents.length; row++) {
+                for (int column = 0; column < contents[0].length; column++) {
+                    if (contents[row][column] == null) {
                         set(row, column, item);
                         return this;
                     }
@@ -769,9 +771,9 @@ public interface InventoryContents {
         @Override
         public Optional<SlotPos> findItem(ItemStack itemStack) {
             Preconditions.checkNotNull(itemStack, "The itemstack to look for cannot be null!");
-            for(int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[0].length; column++) {
-                    if(contents[row][column] != null &&
+            for (int row = 0; row < contents.length; row++) {
+                for (int column = 0; column < contents[0].length; column++) {
+                    if (contents[row][column] != null &&
                             itemStack.isSimilar(contents[row][column].getItem(this.player))) {
                         return Optional.of(SlotPos.of(row, column));
                     }
@@ -797,19 +799,20 @@ public interface InventoryContents {
         @Override
         public void removeAmount(ItemStack item, int amount) {
             Preconditions.checkNotNull(item, "The itemstack to remove cannot be null");
-            for(int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[row].length; column++) {
+            for (int row = 0; row < contents.length; row++) {
+                for (int column = 0; column < contents[row].length; column++) {
                     ClickableItem clickableItem = contents[row][column];
-                    if(clickableItem != null &&
-                        item.isSimilar(clickableItem.getItem())) {
+                    if (clickableItem != null &&
+                            item.isSimilar(clickableItem.getItem())) {
                         ItemStack foundStack = clickableItem.getItem();
                         // if the stack amount is smaller than what needs to be removed, remove the stack and continue
-                        if(foundStack.getAmount() <= amount) {
+                        if (foundStack.getAmount() <= amount) {
                             amount -= foundStack.getAmount();
                             this.set(row, column, null);
-                            if(amount == 0)
+                            if (amount == 0)
                                 return;
-                        } else if(foundStack.getAmount() > amount) {// but if the stack is bigger that what needs to be removed, shrink the stack and then finish
+                        } else if (foundStack.getAmount()
+                                > amount) {// but if the stack is bigger that what needs to be removed, shrink the stack and then finish
                             ItemStack clonedStack = foundStack.clone();
                             clonedStack.setAmount(clonedStack.getAmount() - amount);
                             ClickableItem clonedClickableItem = clickableItem.clone(clonedStack);
@@ -824,10 +827,10 @@ public interface InventoryContents {
         @Override
         public void removeAll(ItemStack item) {
             Preconditions.checkNotNull(item, "The itemstack to remove cannot be null");
-            for(int row = 0; row < contents.length; row++) {
-                for(int column = 0; column < contents[row].length; column++) {
-                    if(contents[row][column] != null &&
-                        item.isSimilar(contents[row][column].getItem())) {
+            for (int row = 0; row < contents.length; row++) {
+                for (int column = 0; column < contents[row].length; column++) {
+                    if (contents[row][column] != null &&
+                            item.isSimilar(contents[row][column].getItem())) {
                         this.set(row, column, null);
                     }
                 }
@@ -854,8 +857,8 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fill(ClickableItem item) {
-            for(int row = 0; row < contents.length; row++)
-                for(int column = 0; column < contents[row].length; column++)
+            for (int row = 0; row < contents.length; row++)
+                for (int column = 0; column < contents[row].length; column++)
                     set(row, column, item);
 
             return this;
@@ -863,10 +866,10 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillRow(int row, ClickableItem item) {
-            if(row < 0 || row >= contents.length)
+            if (row < 0 || row >= contents.length)
                 return this;
 
-            for(int column = 0; column < contents[row].length; column++)
+            for (int column = 0; column < contents[row].length; column++)
                 set(row, column, item);
 
             return this;
@@ -874,10 +877,10 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillColumn(int column, ClickableItem item) {
-            if(column < 0 || column >= contents[0].length)
+            if (column < 0 || column >= contents[0].length)
                 return this;
 
-            for(int row = 0; row < contents.length; row++)
+            for (int row = 0; row < contents.length; row++)
                 set(row, column, item);
 
             return this;
@@ -902,9 +905,9 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillRect(int fromRow, int fromColumn, int toRow, int toColumn, ClickableItem item) {
-            for(int row = fromRow; row <= toRow; row++) {
-                for(int column = fromColumn; column <= toColumn; column++) {
-                    if(row != fromRow && row != toRow && column != fromColumn && column != toColumn)
+            for (int row = fromRow; row <= toRow; row++) {
+                for (int column = fromColumn; column <= toColumn; column++) {
+                    if (row != fromRow && row != toRow && column != fromColumn && column != toColumn)
                         continue;
 
                     set(row, column, item);
@@ -935,8 +938,8 @@ public interface InventoryContents {
             Preconditions.checkArgument(fromRow < toRow, "The start row needs to be lower than the end row");
             Preconditions.checkArgument(fromColumn < toColumn, "The start column needs to be lower than the end column");
 
-            for(int row = fromRow; row <= toRow; row++) {
-                for(int column = fromColumn; column <= toColumn; column++) {
+            for (int row = fromRow; row <= toRow; row++) {
+                for (int column = fromColumn; column <= toColumn; column++) {
                     set(row, column, item);
                 }
             }
@@ -975,27 +978,28 @@ public interface InventoryContents {
             int columnCount = this.inv.getColumns();
             boolean maxSize = endIndex < 0;
 
-            return fillPatternRepeating(pattern, startIndex / columnCount, startIndex % columnCount, (maxSize ? -1 : endIndex / columnCount), (maxSize ? -1 : endIndex % columnCount));
+            return fillPatternRepeating(pattern, startIndex / columnCount, startIndex % columnCount, (maxSize ? -1 : endIndex / columnCount),
+                    (maxSize ? -1 : endIndex % columnCount));
         }
 
         @Override
         public InventoryContents fillPatternRepeating(Pattern<ClickableItem> pattern, int startRow, int startColumn, int endRow, int endColumn) {
             Preconditions.checkArgument(pattern.isWrapAround(), "To fill in a repeating pattern wrapAround needs to be enabled for the pattern to work!");
 
-            if(endRow < 0)
+            if (endRow < 0)
                 endRow = this.inv.getRows();
-            if(endColumn < 0)
+            if (endColumn < 0)
                 endColumn = this.inv.getColumns();
 
             Preconditions.checkArgument(startRow < endRow, "The start row needs to be lower than the end row");
             Preconditions.checkArgument(startColumn < endColumn, "The start column needs to be lower than the end column");
 
             int rowDelta = endRow - startRow, columnDelta = endColumn - startColumn;
-            for(int row = 0; row <= rowDelta; row++) {
-                for(int column = 0; column <= columnDelta; column++) {
+            for (int row = 0; row <= rowDelta; row++) {
+                for (int column = 0; column <= columnDelta; column++) {
                     ClickableItem item = pattern.getObject(row, column);
 
-                    if(item != null)
+                    if (item != null)
                         set(startRow + row, startColumn + column, item);
                 }
             }
@@ -1009,11 +1013,11 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillPattern(Pattern<ClickableItem> pattern, int startRow, int startColumn) {
-            for(int row = 0; row < pattern.getRowCount(); row++) {
-                for(int column = 0; column < pattern.getColumnCount(); column++) {
+            for (int row = 0; row < pattern.getRowCount(); row++) {
+                for (int column = 0; column < pattern.getColumnCount(); column++) {
                     ClickableItem item = pattern.getObject(row, column);
 
-                    if(item != null)
+                    if (item != null)
                         set(startRow + row, startColumn + column, item);
                 }
             }
@@ -1040,7 +1044,7 @@ public interface InventoryContents {
         }
 
         private void update(int row, int column, ItemStack item) {
-            if(!inv.getManager().getOpenedPlayers(inv).contains(player))
+            if (!inv.getManager().getOpenedPlayers(inv).contains(player))
                 return;
 
             Inventory topInventory = player.getOpenInventory().getTopInventory();
@@ -1049,7 +1053,7 @@ public interface InventoryContents {
 
         @Override
         public void setEditable(SlotPos slot, boolean editable) {
-            if(editable)
+            if (editable)
                 editableSlots.add(slot);
             else
                 editableSlots.remove(slot);

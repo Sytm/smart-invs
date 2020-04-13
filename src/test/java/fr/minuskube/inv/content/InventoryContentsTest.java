@@ -36,15 +36,14 @@ public class InventoryContentsTest {
 
         contents.add(TEST_CLICKABLE);
 
-        for(int row = 0; row < 6; row++) {
-            for(int column = 0; column < 9; column++) {
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < 9; column++) {
                 Optional<ClickableItem> result = contents.get(SlotPos.of(row, column));
 
-                if(row == 0 && column == 0) {
+                if (row == 0 && column == 0) {
                     assertTrue(result.isPresent());
                     assertEquals(result.get(), TEST_CLICKABLE);
-                }
-                else {
+                } else {
                     assertFalse(result.isPresent());
                 }
             }
@@ -58,8 +57,8 @@ public class InventoryContentsTest {
 
         contents.add(null);
 
-        for(int row = 0; row < 6; row++) {
-            for(int column = 0; column < 9; column++) {
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < 9; column++) {
                 Optional<ClickableItem> result = contents.get(SlotPos.of(row, column));
 
                 assertFalse(result.isPresent());
@@ -72,8 +71,8 @@ public class InventoryContentsTest {
         SmartInventory inv = mockInventory(6, 9);
         InventoryContents contents = new InventoryContents.Impl(inv, null);
 
-        for(int row = 0; row < inv.getRows(); row++) {
-            for(int column = 0; column < inv.getColumns(); column++) {
+        for (int row = 0; row < inv.getRows(); row++) {
+            for (int column = 0; column < inv.getColumns(); column++) {
                 assertFalse(contents.get(row, column).isPresent());
                 assertFalse(contents.get(SlotPos.of(row, column)).isPresent());
             }

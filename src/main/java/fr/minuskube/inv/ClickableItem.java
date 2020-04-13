@@ -52,16 +52,17 @@ public class ClickableItem {
      * @return the created ClickableItem
      */
     public static ClickableItem empty(ItemStack item) {
-        return from(item, data -> {});
+        return from(item, data -> {
+        });
     }
 
     /**
      * Creates a ClickableItem made of a given item and a given InventoryClickEvent's consumer.
      *
-     * @deprecated Replaced by {@link ClickableItem#from(ItemStack, Consumer)}
-     * @param item the item
+     * @param item     the item
      * @param consumer the consumer which will be called when the item is clicked
      * @return the created ClickableItem
+     * @deprecated Replaced by {@link ClickableItem#from(ItemStack, Consumer)}
      */
     @Deprecated
     public static ClickableItem of(ItemStack item, Consumer<InventoryClickEvent> consumer) {
@@ -71,7 +72,7 @@ public class ClickableItem {
     /**
      * Creates a ClickableItem made of a given item and a given ItemClickData's consumer.
      *
-     * @param item the item
+     * @param item     the item
      * @param consumer the consumer which will be called when the item is clicked
      * @return the created ClickableItem
      */
@@ -82,14 +83,14 @@ public class ClickableItem {
     /**
      * Executes this ClickableItem's consumer using the given click event.
      *
-     * @deprecated This has been replaced by {@link ClickableItem#run(ItemClickData)}.
      * @param e the click event
+     * @deprecated This has been replaced by {@link ClickableItem#run(ItemClickData)}.
      */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public void run(InventoryClickEvent e) {
         if ((canSee == null || canSee.test((Player) e.getWhoClicked())) && (canClick == null || canClick.test((Player) e.getWhoClicked()))) {
-            if(!this.legacy)
+            if (!this.legacy)
                 return;
 
             Consumer<InventoryClickEvent> legacyConsumer = (Consumer<InventoryClickEvent>) this.consumer;
@@ -117,8 +118,8 @@ public class ClickableItem {
      */
     public void run(ItemClickData data) {
         if ((canSee == null || canSee.test(data.getPlayer())) && (canClick == null || canClick.test(data.getPlayer()))) {
-            if(this.legacy) {
-                if(data.getEvent() instanceof InventoryClickEvent) {
+            if (this.legacy) {
+                if (data.getEvent() instanceof InventoryClickEvent) {
                     InventoryClickEvent event = (InventoryClickEvent) data.getEvent();
 
                     this.run(event);
@@ -169,9 +170,7 @@ public class ClickableItem {
      * </ul>
      *
      * @param canSee the test, if a player should be allowed to see this item
-     *
      * @return <code>this</code> , for chained calls
-     *
      * @see #canSee(Predicate, ItemStack) If you want to set a specific fallback item
      */
     public ClickableItem canSee(Predicate<Player> canSee) {
@@ -193,9 +192,7 @@ public class ClickableItem {
      *
      * @param canSee       the test, if a player should be allowed to see this item
      * @param fallBackItem the item that should be used, if the player is <b>not</b> allowed to see the item
-     *
      * @return <code>this</code> , for chained calls
-     *
      * @see #canSee(Predicate) If you want the slot to be empty
      */
     public ClickableItem canSee(Predicate<Player> canSee, ItemStack fallBackItem) {
@@ -210,7 +207,6 @@ public class ClickableItem {
      * If a player is not allowed to click this item, the on click handler provided at creation will not be run
      *
      * @param canClick the test, if a player should be allowed to see this item
-     *
      * @return <code>this</code> , for chained calls
      */
     public ClickableItem canClick(Predicate<Player> canClick) {

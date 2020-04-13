@@ -41,7 +41,6 @@ public class Pattern<T> {
      * A instance created with this constructor is equal to {@link #Pattern(boolean, String...) Pattern(false, lines)}
      *
      * @param lines the lines describing the pattern
-     *
      * @throws NullPointerException     If <code>lines</code> is null
      * @throws NullPointerException     If a string in lines is null
      * @throws IllegalArgumentException If the length of <code>lines</code> is zero
@@ -59,7 +58,6 @@ public class Pattern<T> {
      *
      * @param wrapAround whether the pattern should be repeated if the
      * @param lines      the lines describing the pattern
-     *
      * @throws NullPointerException     If <code>lines</code> is null
      * @throws NullPointerException     If a string in lines is null
      * @throws IllegalArgumentException If the length of <code>lines</code> is zero
@@ -77,7 +75,7 @@ public class Pattern<T> {
             String line = lines[i];
             Preconditions.checkNotNull(line, "The given pattern line %s cannot be null.", i);
             Preconditions.checkArgument(line.length() == columnCount,
-                "The given pattern line %s does not match the first line character count.", i);
+                    "The given pattern line %s does not match the first line character count.", i);
             this.lines[i] = lines[i];
         }
 
@@ -89,7 +87,6 @@ public class Pattern<T> {
      *
      * @param character The key character
      * @param object    The object to attach to that character
-     *
      * @return <code>this</code> , for chained calls
      */
     public Pattern<T> attach(char character, T object) {
@@ -103,9 +100,7 @@ public class Pattern<T> {
      * what this method does and usage is for code clarity discouraged
      *
      * @param index The index in this pattern
-     *
      * @return The object associated with the key
-     *
      * @see #getObject(int, int) For more detailed information
      */
     public T getObject(int index) {
@@ -119,9 +114,7 @@ public class Pattern<T> {
      * so all the special cases described in that method will apply to this one
      *
      * @param slot The slot position to extract the row and column from
-     *
      * @return The object associated with the key, or the default object
-     *
      * @see #getObject(int, int) For the more detailed information
      */
     public T getObject(SlotPos slot) {
@@ -139,9 +132,7 @@ public class Pattern<T> {
      *
      * @param row    The row of the key
      * @param column The column of the key
-     *
      * @return The object associated with the key, or the default object
-     *
      * @throws IndexOutOfBoundsException If wrapAround is <code>false</code> and row or column are negative or not less that the patterns dimensions
      */
     public T getObject(int row, int column) {
@@ -164,7 +155,6 @@ public class Pattern<T> {
      * If it could not be found, the returned {@link Optional} is empty.
      *
      * @param character The character key to look for
-     *
      * @return An optional containing the slot position in this pattern, or empty if it could not be found
      */
     public Optional<SlotPos> findKey(char character) {
@@ -185,7 +175,6 @@ public class Pattern<T> {
      * If the key isn't contained in this pattern, the returned list will be empty.
      *
      * @param character The character key to look for
-     *
      * @return A mutable list containing all positions where that key occurs
      */
     public List<SlotPos> findAllKeys(char character) {
@@ -215,7 +204,6 @@ public class Pattern<T> {
      * Sets a new default value, which can be null and will override the previous value if present.
      *
      * @param defaultValue The new default value
-     *
      * @return <code>this</code> , for chained calls
      */
     public Pattern<T> setDefault(T defaultValue) {

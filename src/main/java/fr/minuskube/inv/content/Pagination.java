@@ -22,29 +22,29 @@ import java.util.Arrays;
 
 /**
  * <p>
- *     Pagination system which lets you switch pages;
- *     easily get items in the given page,
- *     easily manipulate the pages and
- *     check if a page is the first or the last one
- *     ({@link Pagination#isFirst()} / {@link Pagination#isLast()}).
+ * Pagination system which lets you switch pages;
+ * easily get items in the given page,
+ * easily manipulate the pages and
+ * check if a page is the first or the last one
+ * ({@link Pagination#isFirst()} / {@link Pagination#isLast()}).
  * </p>
  *
  * <p>
- *     You must start by setting the <b>items</b> and the <b>itemsPerPage</b>,
- *     then you can manipulate the pages by using the
- *     {@link Pagination#page(int)} /
- *     {@link Pagination#first()} /
- *     {@link Pagination#previous()} /
- *     {@link Pagination#next()} /
- *     {@link Pagination#last()}
- *     methods.
+ * You must start by setting the <b>items</b> and the <b>itemsPerPage</b>,
+ * then you can manipulate the pages by using the
+ * {@link Pagination#page(int)} /
+ * {@link Pagination#first()} /
+ * {@link Pagination#previous()} /
+ * {@link Pagination#next()} /
+ * {@link Pagination#last()}
+ * methods.
  * </p>
  *
  * <p>
- *     Then, when you need to get all the items of the current page,
- *     either use the {@link Pagination#getPageItems()} method, or directly
- *     add the items to your inventory with a SlotIterator and the
- *     method {@link Pagination#addToIterator(SlotIterator)}
+ * Then, when you need to get all the items of the current page,
+ * either use the {@link Pagination#getPageItems()} method, or directly
+ * add the items to your inventory with a SlotIterator and the
+ * method {@link Pagination#addToIterator(SlotIterator)}
  * </p>
  */
 public interface Pagination {
@@ -195,7 +195,7 @@ public interface Pagination {
 
         @Override
         public Pagination previous() {
-            if(!isFirst())
+            if (!isFirst())
                 this.currentPage--;
 
             return this;
@@ -203,7 +203,7 @@ public interface Pagination {
 
         @Override
         public Pagination next() {
-            if(!isLast())
+            if (!isLast())
                 this.currentPage++;
 
             return this;
@@ -217,10 +217,10 @@ public interface Pagination {
 
         @Override
         public Pagination addToIterator(SlotIterator iterator) {
-            for(ClickableItem item : getPageItems()) {
+            for (ClickableItem item : getPageItems()) {
                 iterator.next().set(item);
 
-                if(iterator.ended())
+                if (iterator.ended())
                     break;
             }
 

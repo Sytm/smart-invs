@@ -17,7 +17,7 @@ public class PaginationTest {
 
         ClickableItem[] items = new ClickableItem[64];
 
-        for(int i = 0; i < items.length; i++)
+        for (int i = 0; i < items.length; i++)
             items[i] = ClickableItem.empty(new ItemStack(Material.STONE, i));
 
         pagination.setItems(items);

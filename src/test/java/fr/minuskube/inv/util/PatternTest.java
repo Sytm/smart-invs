@@ -3,7 +3,8 @@ package fr.minuskube.inv.util;
 import fr.minuskube.inv.content.SlotPos;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PatternTest {
 
@@ -71,16 +72,15 @@ public class PatternTest {
         pattern.setDefault("Empty");
         pattern.attach('X', "Full");
 
-        for(int row = 0; row < pattern.getRowCount(); row++) {
-            for(int column = 0; column < pattern.getColumnCount(); column++) {
+        for (int row = 0; row < pattern.getRowCount(); row++) {
+            for (int column = 0; column < pattern.getColumnCount(); column++) {
                 String expected;
 
-                if(row == 0 || row == (pattern.getRowCount() - 1)
+                if (row == 0 || row == (pattern.getRowCount() - 1)
                         || column == 0 || column == (pattern.getColumnCount() - 1)) {
 
                     expected = "Full";
-                }
-                else {
+                } else {
                     expected = "Empty";
                 }
 

@@ -22,7 +22,6 @@ import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.util.Pattern;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -317,7 +316,7 @@ public interface SlotIterator {
         private Pattern<Boolean> blacklistPattern;
 
         public Impl(InventoryContents contents, SmartInventory inv,
-                    Type type, int startRow, int startColumn) {
+                Type type, int startRow, int startColumn) {
 
             this.contents = contents;
             this.inv = inv;
@@ -332,7 +331,7 @@ public interface SlotIterator {
         }
 
         public Impl(InventoryContents contents, SmartInventory inv,
-                    Type type) {
+                Type type) {
 
             this(contents, inv, type, 0, 0);
         }

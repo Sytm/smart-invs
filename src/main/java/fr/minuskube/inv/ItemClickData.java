@@ -35,9 +35,20 @@ public class ItemClickData {
         this.slot = slot;
     }
 
-    public Event getEvent() { return event; }
-    public Player getPlayer() { return player; }
-    public ItemStack getItem() { return item; }
-    public SlotPos getSlot() { return slot; }
+    public Event getEvent() {
+        return event;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public SlotPos getSlot() {
+        return slot;
+    }
 
 }

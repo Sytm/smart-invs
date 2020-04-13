@@ -16,24 +16,18 @@
 
 package fr.minuskube.inv;
 
+import com.google.common.base.Preconditions;
 import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import fr.minuskube.inv.content.SlotPos;
 import fr.minuskube.inv.opener.InventoryOpener;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import com.google.common.base.Preconditions;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class SmartInventory {
@@ -55,19 +49,19 @@ public class SmartInventory {
         this.manager = manager;
     }
 
-    public Inventory open(Player player) {	
-        return open(player, 0, Collections.EMPTY_MAP);	
-    }	
-    
-    public Inventory open(Player player, int page) {	
-        return open(player, page, Collections.EMPTY_MAP);	
-    }	
-    
-    public Inventory open(Player player, Map<String, Object> properties) {	
-        return open(player, 0, properties);	
-    }	
+    public Inventory open(Player player) {
+        return open(player, 0, Collections.EMPTY_MAP);
+    }
 
-    public Inventory open(Player player, int page, Map<String, Object> properties) {	
+    public Inventory open(Player player, int page) {
+        return open(player, page, Collections.EMPTY_MAP);
+    }
+
+    public Inventory open(Player player, Map<String, Object> properties) {
+        return open(player, 0, properties);
+    }
+
+    public Inventory open(Player player, int page, Map<String, Object> properties) {
         Optional<SmartInventory> oldInv = this.manager.getInventory(player);
 
         oldInv.ifPresent(inv -> {
@@ -82,7 +76,7 @@ public class SmartInventory {
         InventoryContents contents = new InventoryContents.Impl(this, player);
         contents.pagination().page(page);
         properties.forEach(contents::setProperty);
-        
+
         this.manager.setContents(player, contents);
         this.provider.init(player, contents);
 
@@ -92,7 +86,7 @@ public class SmartInventory {
 
         this.manager.setInventory(player, this);
         this.manager.scheduleUpdateTask(player, this);
-        
+
         return handle;
     }
 
@@ -108,37 +102,71 @@ public class SmartInventory {
         this.manager.setContents(player, null);
         this.manager.cancelUpdateTask(player);
     }
+
     /**
      * Checks if this inventory has a slot at the specified position
+     *
      * @param row Slot row (starts at 0)
      * @param col Slot column (starts at 0)
      * @return <code>true</code> if the given row and column are valid
      */
     public boolean checkBounds(int row, int col) {
-        if(row < 0 || col < 0)
+        if (row < 0 || col < 0)
             return false;
         return row < this.rows && col < this.columns;
     }
 
-    public String getId() { return id; }
-    public String getTitle() { return title; }
-    public InventoryType getType() { return type; }
-    public int getRows() { return rows; }
-    public int getColumns() { return columns; }
+    public String getId() {
+        return id;
+    }
 
-    public boolean isCloseable() { return closeable; }
-    public void setCloseable(boolean closeable) { this.closeable = closeable; }
-    
-    public int getUpdateFrequency() { return updateFrequency; }
+    public String getTitle() {
+        return title;
+    }
 
-    public InventoryProvider getProvider() { return provider; }
-    public Optional<SmartInventory> getParent() { return Optional.ofNullable(parent); }
+    public InventoryType getType() {
+        return type;
+    }
 
-    public InventoryManager getManager() { return manager; }
+    public int getRows() {
+        return rows;
+    }
 
-    List<InventoryListener<? extends Event>> getListeners() { return listeners; }
+    public int getColumns() {
+        return columns;
+    }
 
-    public static Builder builder() { return new Builder(); }
+    public boolean isCloseable() {
+        return closeable;
+    }
+
+    public void setCloseable(boolean closeable) {
+        this.closeable = closeable;
+    }
+
+    public int getUpdateFrequency() {
+        return updateFrequency;
+    }
+
+    public InventoryProvider getProvider() {
+        return provider;
+    }
+
+    public Optional<SmartInventory> getParent() {
+        return Optional.ofNullable(parent);
+    }
+
+    public InventoryManager getManager() {
+        return manager;
+    }
+
+    List<InventoryListener<? extends Event>> getListeners() {
+        return listeners;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
 
@@ -156,7 +184,8 @@ public class SmartInventory {
 
         private List<InventoryListener<? extends Event>> listeners = new ArrayList<>();
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder id(String id) {
             this.id = id;
@@ -183,18 +212,19 @@ public class SmartInventory {
             this.closeable = closeable;
             return this;
         }
-        
+
         /**
          * This method is used to configure the frequency at which the {@link InventoryProvider#update(Player, InventoryContents)}
          * method is called. Defaults to 1
+         *
          * @param frequency The inventory update frequency, in ticks
          * @return <code>this</code> , for chained calls
          * @throws IllegalArgumentException If frequency is smaller than 1.
          */
         public Builder updateFrequency(int frequency) {
-        	Preconditions.checkArgument(frequency > 0, "frequency must be > 0");
-        	this.updateFrequency = frequency;
-        	return this;
+            Preconditions.checkArgument(frequency > 0, "frequency must be > 0");
+            this.updateFrequency = frequency;
+            return this;
         }
 
         public Builder provider(InventoryProvider provider) {
@@ -216,7 +246,7 @@ public class SmartInventory {
             this.manager = manager;
             return this;
         }
-        
+
         public String getId() {
             return id;
         }
@@ -262,12 +292,12 @@ public class SmartInventory {
         }
 
         public SmartInventory build() {
-            if(this.provider == null)
+            if (this.provider == null)
                 throw new IllegalStateException("The provider of the SmartInventory.Builder must be set.");
 
-            if(this.manager == null) {          // if it's null, use the default instance
-                this.manager = SmartInvsPlugin.manager();   
-                if(this.manager == null) {      // if it's still null, throw an exception
+            if (this.manager == null) {          // if it's null, use the default instance
+                this.manager = SmartInvsPlugin.manager();
+                if (this.manager == null) {      // if it's still null, throw an exception
                     throw new IllegalStateException("Manager of the SmartInventory.Builder must be set, or SmartInvs should be loaded as a plugin.");
                 }
             }
@@ -288,13 +318,13 @@ public class SmartInventory {
 
         private SlotPos getDefaultDimensions(InventoryType type) {
             InventoryOpener opener = this.manager.findOpener(type).orElse(null);
-            if(opener == null)
+            if (opener == null)
                 throw new IllegalStateException("Cannot find InventoryOpener for type " + type);
-            
+
             SlotPos size = opener.defaultSize(type);
-            if(size == null)
+            if (size == null)
                 throw new IllegalStateException(String.format("%s returned null for input InventoryType %s", opener.getClass().getSimpleName(), type));
-            
+
             return size;
         }
 
