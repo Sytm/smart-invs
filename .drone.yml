@@ -1,25 +1,22 @@
 kind: pipeline
-name: default
+name: test
 type: docker
 
 steps:
   - name: test
-    image: gradle:5.4.1
+    image: maven:3-jdk-11
     commands:
-      - gradle test
-  - name: deploy
-    image: gradle:5.4.1
-    environment:
-      SYTM_NEXUS_USER:
-        from_secret: repo_username
-      SYTM_NEXUS_PASSWORD:
-        from_secret: repo_password
-    commands:
-      - gradle uploadArchives -PsytmNexusUser=$SYTM_NEXUS_USER -PsytmNexusPassword=$SYTM_NEXUS_PASSWORD
-    when:
-      event:
-        exclude:
-          - pull_request
+      - mvn test -B
+#  - name: deploy
+#    image: maven:3-jdk-11
+#    commands:
+#      - gradle uploadArchives -PsytmNexusUser=$SYTM_NEXUS_USER -PsytmNexusPassword=$SYTM_NEXUS_PASSWORD
+#    when:
+#      branch:
+#        - master
+#      event:
+#        exclude:
+#          - pull_request
 
 trigger:
   event:

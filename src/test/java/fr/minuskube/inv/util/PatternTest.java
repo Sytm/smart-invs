@@ -1,24 +1,24 @@
 package fr.minuskube.inv.util;
 
 import fr.minuskube.inv.content.SlotPos;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PatternTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testEmptyPattern() {
-        new Pattern<>();
+        assertThrows(IllegalArgumentException.class, Pattern::new);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testUnequalColumnsPattern() {
-        new Pattern<>(
+        assertThrows(IllegalArgumentException.class, () -> new Pattern<>(
                 "X   X",
                 "X    X",
                 "X   X"
-        );
+        ));
     }
 
     @Test
@@ -33,24 +33,28 @@ public class PatternTest {
         assertEquals(5, pattern.getColumnCount());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testNegativeGetPattern() {
-        Pattern<String> pattern = new Pattern<>(
-                "XOOX",
-                "XOOX"
-        );
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            Pattern<String> pattern = new Pattern<>(
+                    "XOOX",
+                    "XOOX"
+            );
 
-        pattern.getObject(-1, 0);
+            pattern.getObject(-1, 0);
+        });
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testOversizeGetPattern() {
-        Pattern<String> pattern = new Pattern<>(
-                "XOOX",
-                "XOOX"
-        );
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            Pattern<String> pattern = new Pattern<>(
+                    "XOOX",
+                    "XOOX"
+            );
 
-        pattern.getObject(0, 4);
+            pattern.getObject(0, 4);
+        });
     }
 
     @Test

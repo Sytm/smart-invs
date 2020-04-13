@@ -5,11 +5,11 @@ import fr.minuskube.inv.InventoryManager;
 import fr.minuskube.inv.SmartInventory;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

@@ -2,9 +2,9 @@ package fr.minuskube.inv.content;
 
 import fr.minuskube.inv.InventoryManager;
 import fr.minuskube.inv.SmartInventory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class SlotIteratorTest {
@@ -62,34 +62,34 @@ public class SlotIteratorTest {
     public void testStartedEnded() {
         SlotIterator iterator = this.createIterator(3, 9);
 
-        assertFalse("The started() method returns true before the start", iterator.started());
-        assertFalse("The ended() method returns true before the end", iterator.ended());
+        assertFalse(iterator.started(), "The started() method returns true before the start");
+        assertFalse( iterator.ended(), "The ended() method returns true before the end");
 
         iterator.previous();
 
-        assertTrue("The started() method returns false after previous()", iterator.started());
-        assertFalse("The ended() method returns true before the end", iterator.ended());
+        assertTrue(iterator.started(), "The started() method returns false after previous()");
+        assertFalse(iterator.ended(), "The ended() method returns true before the end");
 
         iterator.next();
 
-        assertTrue("The started() method returns false after next()", iterator.started());
-        assertFalse("The ended() method returns true before the end", iterator.ended());
+        assertTrue(iterator.started(), "The started() method returns false after next()");
+        assertFalse(iterator.ended(), "The ended() method returns true before the end");
 
         for(int i = 0; i < 3 * 9 - 1; i++)
             iterator.next();
 
-        assertTrue("The started() method returns false after multiple next()", iterator.started());
-        assertTrue("The ended() method returns false at the end of the inventory", iterator.ended());
+        assertTrue(iterator.started(), "The started() method returns false after multiple next()");
+        assertTrue(iterator.ended(), "The ended() method returns false at the end of the inventory");
 
         iterator.next();
 
-        assertTrue("The started() method returns false after the end of the inventory", iterator.started());
-        assertTrue("The ended() method returns false after the end of the inventory", iterator.ended());
+        assertTrue(iterator.started(), "The started() method returns false after the end of the inventory");
+        assertTrue(iterator.ended(), "The ended() method returns false after the end of the inventory");
 
         iterator.previous();
 
-        assertTrue("The started() method returns false after previous()", iterator.started());
-        assertFalse("The ended() method returns true after previous()", iterator.ended());
+        assertTrue(iterator.started(), "The started() method returns false after previous()");
+        assertFalse(iterator.ended(), "The ended() method returns true after previous()");
     }
 
 }

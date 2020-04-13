@@ -4,11 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +18,7 @@ public class ClickableItemTest {
     public void testNone() {
         ClickableItem item = ClickableItem.NONE;
 
-        assertNull("The item from ClickableItem.NONE is not null", item.getItem());
+        assertNull(item.getItem(), "The item from ClickableItem.NONE is not null");
     }
 
     @SuppressWarnings("deprecation")
@@ -33,7 +33,7 @@ public class ClickableItemTest {
 
         item.run(clickData);
 
-        assertTrue("The ClickableItem's consumer has not been called", bool.get());
+        assertTrue(bool.get(), "The ClickableItem's consumer has not been called");
     }
 
     @SuppressWarnings("deprecation")
@@ -48,7 +48,7 @@ public class ClickableItemTest {
 
         item.run(clickData);
 
-        assertFalse("The ClickableItem's consumer has been called", bool.get());
+        assertFalse(bool.get(), "The ClickableItem's consumer has been called");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ClickableItemTest {
 
         item.run(clickData);
 
-        assertTrue("The ClickableItem's consumer has not been called", bool.get());
+        assertTrue(bool.get(), "The ClickableItem's consumer has not been called");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ClickableItemTest {
 
         item.run(clickData);
 
-        assertTrue("The ClickableItem's consumer has not been called", bool.get());
+        assertTrue(bool.get(), "The ClickableItem's consumer has not been called");
     }
 
     @Test
@@ -89,8 +89,8 @@ public class ClickableItemTest {
         ClickableItem clone = item.clone(itemStack);
         clone.run(mock(ItemClickData.class));
 
-        assertEquals("The cloned ClickableItem's item is wrong", clone.getItem(), itemStack);
-        assertTrue("The cloned ClickableItem's consumer has not been called", bool.get());
+        assertEquals(clone.getItem(), itemStack, "The cloned ClickableItem's item is wrong");
+        assertTrue(bool.get(), "The cloned ClickableItem's consumer has not been called");
     }
 
 }
