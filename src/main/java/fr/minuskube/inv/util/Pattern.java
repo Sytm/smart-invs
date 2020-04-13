@@ -90,7 +90,7 @@ public class Pattern<T> {
      * @param character The key character
      * @param object    The object to attach to that character
      *
-     * @return <code>this</code> for a builder-like usage
+     * @return <code>this</code> , for chained calls
      */
     public Pattern<T> attach(char character, T object) {
         this.mapping.put(character, object);
@@ -216,7 +216,7 @@ public class Pattern<T> {
      *
      * @param defaultValue The new default value
      *
-     * @return <code>this</code> for a builder-like usage
+     * @return <code>this</code> , for chained calls
      */
     public Pattern<T> setDefault(T defaultValue) {
         this.defaultValue = defaultValue;

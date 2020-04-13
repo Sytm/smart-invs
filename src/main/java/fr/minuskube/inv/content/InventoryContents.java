@@ -109,6 +109,10 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#newIterator(String, SlotIterator.Type, int, int)},
      * but using a {@link SlotPos} instead.
      *
+     * @param id          the id of the iterator
+     * @param type        the type of the iterator
+     * @param startPos    the starting position of the iterator
+     * @return A new SlotIterator with the given parameters
      * @see InventoryContents#newIterator(String, SlotIterator.Type, int, int)
      */
     SlotIterator newIterator(String id, SlotIterator.Type type, SlotPos startPos);
@@ -117,6 +121,9 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#newIterator(SlotIterator.Type, int, int)},
      * but using a {@link SlotPos} instead.
      *
+     * @param type        the type of the iterator
+     * @param startPos    the starting position of the iterator
+     * @return A new SlotIterator with the given parameters
      * @see InventoryContents#newIterator(SlotIterator.Type, int, int)
      */
     SlotIterator newIterator(SlotIterator.Type type, SlotPos startPos);
@@ -161,6 +168,9 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#get(int)},
      * but with a row and a column instead of the index.
      *
+     * @param row    the row in the inventory
+     * @param column the column in the inventory
+     * @return the found item, if there is one
      * @see InventoryContents#get(int)
      */
     Optional<ClickableItem> get(int row, int column);
@@ -169,6 +179,8 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#get(int)},
      * but with a {@link SlotPos} instead of the index.
      *
+     * @param slotPos the slot to get the item from
+     * @return the found item, if there is one
      * @see InventoryContents#get(int)
      */
     Optional<ClickableItem> get(SlotPos slotPos);
@@ -187,6 +199,10 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#set(int, ClickableItem)},
      * but with a row and a column instead of the index.
      *
+     * @param row    the row of the slot to update
+     * @param column the column of the slot to update
+     * @param item   the item that should be set
+     * @return <code>this</code>, for chained calls
      * @see InventoryContents#set(int, ClickableItem)
      */
     InventoryContents set(int row, int column, ClickableItem item);
@@ -195,6 +211,9 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#set(int, ClickableItem)},
      * but with a {@link SlotPos} instead of the index.
      *
+     * @param slotPos the slot to update
+     * @param item    the item that should be set
+     * @return <code>this</code>, for chained calls
      * @see InventoryContents#set(int, ClickableItem)
      */
     InventoryContents set(SlotPos slotPos, ClickableItem item);
@@ -352,6 +371,12 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#fillRect(int, int, ClickableItem)},
      * but with {@link SlotPos} instead of the indexes.
      *
+     * @param fromRow    the row of the first corner of the rect 
+     * @param fromColumn the column of the first corner of the rect
+     * @param toRow      the row of the second corner of the rect
+     * @param toColumn   the column of the second corner of the rect
+     * @param item       the item to fill the rect with
+     * @return <code>this</code>, for chained calls
      * @see InventoryContents#fillRect(int, int, ClickableItem)
      */
     InventoryContents fillRect(int fromRow, int fromColumn,
@@ -361,6 +386,10 @@ public interface InventoryContents {
      * Same as {@link InventoryContents#fillRect(int, int, ClickableItem)},
      * but with rows and columns instead of the indexes.
      *
+     * @param fromPos the first corner of the rect 
+     * @param toPos   the second corner of the rect
+     * @param item    the item to fill the rect with
+     * @return <code>this</code>, for chained calls
      * @see InventoryContents#fillRect(int, int, ClickableItem)
      */
     InventoryContents fillRect(SlotPos fromPos, SlotPos toPos, ClickableItem item);

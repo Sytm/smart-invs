@@ -164,13 +164,13 @@ public class ClickableItem {
      * <br>
      * Examples:
      * <ul>
-     *     <li><code>.canSee(player -> player.hasPermission("my.permission"))</code></li>
-     *     <li><code>.canSee(player -> player.getHealth() >= 10)</code></li>
+     *     <li><code>.canSee(player -{@literal >} player.hasPermission("my.permission"))</code></li>
+     *     <li><code>.canSee(player -{@literal >} player.getHealth() {@literal >}= 10)</code></li>
      * </ul>
      *
      * @param canSee the test, if a player should be allowed to see this item
      *
-     * @return <code>this</code> for a builder-like usage
+     * @return <code>this</code> , for chained calls
      *
      * @see #canSee(Predicate, ItemStack) If you want to set a specific fallback item
      */
@@ -187,14 +187,14 @@ public class ClickableItem {
      * <br>
      * Examples:
      * <ul>
-     *     <li><code>.canSee(player -> player.hasPermission("my.permission"), backgroundItem)</code></li>
-     *     <li><code>.canSee(player -> player.getHealth() >= 10, backgroundItem)</code></li>
+     *     <li><code>.canSee(player -{@literal >} player.hasPermission("my.permission"), backgroundItem)</code></li>
+     *     <li><code>.canSee(player -{@literal >} player.getHealth() {@literal >}= 10, backgroundItem)</code></li>
      * </ul>
      *
      * @param canSee       the test, if a player should be allowed to see this item
      * @param fallBackItem the item that should be used, if the player is <b>not</b> allowed to see the item
      *
-     * @return <code>this</code> for a builder-like usage
+     * @return <code>this</code> , for chained calls
      *
      * @see #canSee(Predicate) If you want the slot to be empty
      */
@@ -211,7 +211,7 @@ public class ClickableItem {
      *
      * @param canClick the test, if a player should be allowed to see this item
      *
-     * @return <code>this</code> for a builder-like usage
+     * @return <code>this</code> , for chained calls
      */
     public ClickableItem canClick(Predicate<Player> canClick) {
         this.canClick = canClick;

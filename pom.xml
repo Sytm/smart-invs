@@ -154,7 +154,7 @@
                     <links>
                         <link>https://hub.spigotmc.org/javadocs/spigot/</link>
                     </links>
-                    <additionalOptions>-html5</additionalOptions>
+                    <additionalOptions>-html5 -quiet</additionalOptions>
                 </configuration>
             </plugin>
             <plugin>

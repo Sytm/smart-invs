@@ -112,6 +112,7 @@ public class SmartInventory {
      * Checks if this inventory has a slot at the specified position
      * @param row Slot row (starts at 0)
      * @param col Slot column (starts at 0)
+     * @return <code>true</code> if the given row and column are valid
      */
     public boolean checkBounds(int row, int col) {
         if(row < 0 || col < 0)
@@ -187,6 +188,7 @@ public class SmartInventory {
          * This method is used to configure the frequency at which the {@link InventoryProvider#update(Player, InventoryContents)}
          * method is called. Defaults to 1
          * @param frequency The inventory update frequency, in ticks
+         * @return <code>this</code> , for chained calls
          * @throws IllegalArgumentException If frequency is smaller than 1.
          */
         public Builder updateFrequency(int frequency) {
