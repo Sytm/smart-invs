@@ -17,13 +17,11 @@
 package fr.minuskube.inv;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-@SuppressWarnings({ "unchecked" })
 public class ClickableItem {
 
     /**
@@ -33,15 +31,13 @@ public class ClickableItem {
 
 
     private final ItemStack item;
-    private final Consumer<?> consumer;
-    private final boolean legacy;
+    private final Consumer<ItemClickData> consumer;
     private Predicate<Player> canSee = null, canClick = null;
     private ItemStack notVisibleFallBackItem = null;
 
-    private ClickableItem(ItemStack item, Consumer<?> consumer, boolean legacy) {
+    private ClickableItem(ItemStack item, Consumer<ItemClickData> consumer) {
         this.item = item;
         this.consumer = consumer;
-        this.legacy = legacy;
     }
 
     /**
@@ -57,19 +53,6 @@ public class ClickableItem {
     }
 
     /**
-     * Creates a ClickableItem made of a given item and a given InventoryClickEvent's consumer.
-     *
-     * @param item     the item
-     * @param consumer the consumer which will be called when the item is clicked
-     * @return the created ClickableItem
-     * @deprecated Replaced by {@link ClickableItem#from(ItemStack, Consumer)}
-     */
-    @Deprecated
-    public static ClickableItem of(ItemStack item, Consumer<InventoryClickEvent> consumer) {
-        return new ClickableItem(item, consumer, true);
-    }
-
-    /**
      * Creates a ClickableItem made of a given item and a given ItemClickData's consumer.
      *
      * @param item     the item
@@ -77,25 +60,7 @@ public class ClickableItem {
      * @return the created ClickableItem
      */
     public static ClickableItem from(ItemStack item, Consumer<ItemClickData> consumer) {
-        return new ClickableItem(item, consumer, false);
-    }
-
-    /**
-     * Executes this ClickableItem's consumer using the given click event.
-     *
-     * @param e the click event
-     * @deprecated This has been replaced by {@link ClickableItem#run(ItemClickData)}.
-     */
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated
-    public void run(InventoryClickEvent e) {
-        if ((canSee == null || canSee.test((Player) e.getWhoClicked())) && (canClick == null || canClick.test((Player) e.getWhoClicked()))) {
-            if (!this.legacy)
-                return;
-
-            Consumer<InventoryClickEvent> legacyConsumer = (Consumer<InventoryClickEvent>) this.consumer;
-            legacyConsumer.accept(e);
-        }
+        return new ClickableItem(item, consumer);
     }
 
     /**
@@ -105,7 +70,7 @@ public class ClickableItem {
      * @return the created ClickableItem
      */
     public ClickableItem clone(ItemStack newItem) {
-        ClickableItem clone = new ClickableItem(newItem, this.consumer, this.legacy);
+        ClickableItem clone = new ClickableItem(newItem, this.consumer);
         clone.canSee = this.canSee;
         clone.canClick = this.canClick;
         return clone;
@@ -118,16 +83,7 @@ public class ClickableItem {
      */
     public void run(ItemClickData data) {
         if ((canSee == null || canSee.test(data.getPlayer())) && (canClick == null || canClick.test(data.getPlayer()))) {
-            if (this.legacy) {
-                if (data.getEvent() instanceof InventoryClickEvent) {
-                    InventoryClickEvent event = (InventoryClickEvent) data.getEvent();
-
-                    this.run(event);
-                }
-            } else {
-                Consumer<ItemClickData> newConsumer = (Consumer<ItemClickData>) this.consumer;
-                newConsumer.accept(data);
-            }
+            this.consumer.accept(data);
         }
     }
 
