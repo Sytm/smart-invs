@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.minuskube.inv:smart-invs:1.3.0-SNAPSHOT'
+    implementation 'fr.minuskube.inv:smart-invs:2.0.0-SNAPSHOT'
 }
 ```
 
@@ -55,7 +55,7 @@ dependencies {
 <dependency>
     <groupId>fr.minuskube.inv</groupId>
     <artifactId>smart-invs</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
 </dependency>
 ```
 

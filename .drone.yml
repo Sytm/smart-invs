@@ -7,17 +7,29 @@ steps:
     image: maven:3-jdk-11
     commands:
       - mvn verify -B -ntp
-#  - name: deploy
-#    image: maven:3-jdk-11
-#    commands:
-#      - gradle uploadArchives -PsytmNexusUser=$SYTM_NEXUS_USER -PsytmNexusPassword=$SYTM_NEXUS_PASSWORD
-#    when:
-#      branch:
-#        - master
-#      event:
-#        exclude:
-#          - pull_request
 
 trigger:
   event:
     - push
+---
+kind: pipeline
+name: deploy
+type: docker
+
+steps:
+  - name: create maven settings
+    image: md5lukas/drone-mvn-settings
+    settings:
+      serverSecrets:
+        from_secret: maven_server_secrets
+  - name: deploy
+    image: maven:3-jdk-11
+    commands:
+      - mvn clean deploy -B -ntp
+
+trigger:
+  branch:
+    - master
+  event:
+    exclude:
+      - pull_request
