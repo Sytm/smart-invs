@@ -20,6 +20,9 @@ Primary support target is 1.13+
 * Actions when player clicks on an item
 * Update methods to edit the content of the inventory every tick
 
+## Docs
+JavaDocs are available here on [GitHub Pages](https://sytm.github.io/smart-invs/apidocs/)
+
 ## Usage
 To use the SmartInvs API, either:
 - Put it in the `plugins` folder of your server, add it to your dependencies in your plugin.yml (e.g. `depend: [SmartInvs]`) and add it to the dependencies in your IDE.
