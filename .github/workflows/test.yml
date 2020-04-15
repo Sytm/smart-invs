@@ -25,4 +25,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Test and Build JavaDoc
-        run: maven verify -B -ntp --file pom.xml
+        run: mvn verify -B -ntp --file pom.xml
