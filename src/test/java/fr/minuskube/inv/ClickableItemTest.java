@@ -21,36 +21,6 @@ public class ClickableItemTest {
         assertNull(item.getItem(), "The item from ClickableItem.NONE is not null");
     }
 
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testLegacyInventoryConsumer() {
-        AtomicBoolean bool = new AtomicBoolean(false);
-
-        ClickableItem item = ClickableItem.of(null, event -> bool.set(true));
-
-        ItemClickData clickData = mock(ItemClickData.class);
-        when(clickData.getEvent()).thenReturn(mock(InventoryClickEvent.class));
-
-        item.run(clickData);
-
-        assertTrue(bool.get(), "The ClickableItem's consumer has not been called");
-    }
-
-    @SuppressWarnings("deprecation")
-    @Test
-    public void testLegacyInteractConsumer() {
-        AtomicBoolean bool = new AtomicBoolean(false);
-
-        ClickableItem item = ClickableItem.of(null, event -> bool.set(true));
-
-        ItemClickData clickData = mock(ItemClickData.class);
-        when(clickData.getEvent()).thenReturn(mock(PlayerInteractEvent.class));
-
-        item.run(clickData);
-
-        assertFalse(bool.get(), "The ClickableItem's consumer has been called");
-    }
-
     @Test
     public void testInventoryConsumer() {
         AtomicBoolean bool = new AtomicBoolean(false);

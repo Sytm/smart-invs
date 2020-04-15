@@ -29,7 +29,6 @@ public class ClickableItem {
      */
     public static final ClickableItem NONE = empty(null);
 
-
     private final ItemStack item;
     private final Consumer<ItemClickData> consumer;
     private Predicate<Player> canSee = null, canClick = null;
