@@ -146,12 +146,14 @@ public class InventoryManager {
             if (inv == null)
                 return;
 
+            ClickType clickType = e.getClick();
+
             if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
                 e.setCancelled(true);
                 return;
             }
 
-            if (e.getAction() == InventoryAction.NOTHING && e.getClick() != ClickType.MIDDLE) {
+            if (e.getAction() == InventoryAction.NOTHING && clickType != ClickType.MIDDLE) {
                 e.setCancelled(true);
                 return;
             }
@@ -173,7 +175,7 @@ public class InventoryManager {
                         .filter(listener -> listener.getType() == InventoryClickEvent.class)
                         .forEach(listener -> ((InventoryListener<InventoryClickEvent>) listener).accept(e));
 
-                invContents.get(slot).ifPresent(item -> item.run(new ItemClickData(e, p, e.getCurrentItem(), slot)));
+                invContents.get(slot).ifPresent(item -> item.run(new ItemClickData(e, clickType, p, e.getCurrentItem(), slot)));
 
                 // Don't update if the clicked slot is editable - prevent item glitching
                 if (!invContents.isEditable(slot)) {
