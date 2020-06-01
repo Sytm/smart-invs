@@ -701,7 +701,7 @@ public interface InventoryContents {
             for (int row = 0; row < contents.length; row++) {
                 for (int column = 0; column < contents[0].length; column++) {
                     if (!this.get(row, column).isPresent())
-                        return Optional.of(new SlotPos(row, column));
+                        return Optional.of(SlotPos.of(row, column));
                 }
             }
 

@@ -25,7 +25,7 @@ public class SlotPos {
     private final int row;
     private final int column;
 
-    public SlotPos(int row, int column) {
+    private SlotPos(int row, int column) {
         this.row = row;
         this.column = column;
     }
@@ -58,16 +58,68 @@ public class SlotPos {
                 '}';
     }
 
+    /**
+     *
+     * @return The row of the slot position
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     *
+     * @return The column of the slot position
+     */
     public int getColumn() {
         return column;
     }
 
+    /**
+     * Gets the index of the slot, assuming the amount of columns of the inventory is 9 slots
+     * @return The index of the slot
+     */
+    public int asIndex() {
+        return asIndex(9);
+    }
+
+    /**
+     * Gets the index of the slot using the provided row size
+     *
+     * @param columnCount The amount of columns row has
+     * @return The index of the slot
+     */
+    public int asIndex(int columnCount) {
+        return row * columnCount + column;
+    }
+
+    /**
+     * Creates a new SlotPos instance using the provided row and column
+     *
+     * @param row The row of the slot
+     * @param column The column of the slot
+     * @return A new SlotPos instance
+     */
     public static SlotPos of(int row, int column) {
         return new SlotPos(row, column);
     }
 
+    /**
+     * Creates a new SlotPos instance from an inventory index assuming a row size of 9 columns
+     *
+     * @param index The index in the inventory
+     * @return A new SlotPos instance
+     */
+    public static SlotPos ofIndex(int index) {
+        return ofIndex(index, 9);
+    }
+
+    /**
+     * Creates a new SlotPos instance from an inventory index and column count
+     * @param index The index in the inventory
+     * @param columnCount The amount of columns a row has
+     * @return A new SlotPos instance
+     */
+    public static SlotPos ofIndex(int index, int columnCount) {
+        return of(index / columnCount, index % columnCount);
+    }
 }
