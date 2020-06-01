@@ -30,8 +30,6 @@ public class InventoryOpenerTest {
 
         SpecialInventoryOpener opener = new SpecialInventoryOpener();
 
-        expectedSizes.forEach((type, expectedSize) -> {
-            assertEquals(expectedSize, opener.defaultSize(type));
-        });
+        expectedSizes.forEach((type, expectedSize) -> assertEquals(expectedSize, opener.defaultSize(type)));
     }
 }

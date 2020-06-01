@@ -96,7 +96,7 @@ public interface SlotIterator {
      * <br>
      * Blacklisting a slot will make the iterator
      * skip the given slot and directly go to the next
-     * unblacklisted slot.
+     * slot that isn't blacklisted.
      *
      * @param index the index to blacklist
      * @return <code>this</code>, for chained calls
@@ -108,7 +108,7 @@ public interface SlotIterator {
      * <br>
      * Blacklisting a slot will make the iterator
      * skip the given slot and directly go to the next
-     * unblacklisted slot.
+     * slot that isn't blacklisted.
      *
      * @param row    the row of the slot to blacklist
      * @param column the column of the slot to blacklist
@@ -121,7 +121,7 @@ public interface SlotIterator {
      * <br>
      * Blacklisting a slot will make the iterator
      * skip the given slot and directly go to the next
-     * unblacklisted slot.
+     * slot that isn't blacklisted.
      *
      * @param slotPos the slot to blacklist
      * @return <code>this</code>, for chained calls
@@ -297,17 +297,18 @@ public interface SlotIterator {
 
     class Impl implements SlotIterator {
 
-        private InventoryContents contents;
+        private final InventoryContents contents;
         private final SmartInventory inv;
 
         private final Type type;
         private boolean started = false;
         private boolean allowOverride = true;
         private int endRow, endColumn;
-        private int startRow, startColumn;
+        private final int startRow;
+        private final int startColumn;
         private int row, column;
 
-        private Set<SlotPos> blacklisted = new HashSet<>();
+        private final Set<SlotPos> blacklisted = new HashSet<>();
 
         private int patternRowOffset, patternColumnOffset;
         private Pattern<Boolean> pattern;

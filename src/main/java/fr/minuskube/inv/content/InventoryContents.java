@@ -662,11 +662,11 @@ public interface InventoryContents {
 
         private final ClickableItem[][] contents;
 
-        private Pagination pagination = new Pagination.Impl();
-        private Map<String, SlotIterator> iterators = new HashMap<>();
-        private Map<String, Object> properties = new HashMap<>();
+        private final Pagination pagination = new Pagination.Impl();
+        private final Map<String, SlotIterator> iterators = new HashMap<>();
+        private final Map<String, Object> properties = new HashMap<>();
 
-        private Set<SlotPos> editableSlots = new HashSet<SlotPos>();
+        private final Set<SlotPos> editableSlots = new HashSet<>();
 
         public Impl(SmartInventory inv, Player player) {
             this.inv = inv;
@@ -846,9 +846,7 @@ public interface InventoryContents {
         @Override
         public void removeFirst(ItemStack item) {
             Preconditions.checkNotNull(item, "The itemstack to remove cannot be null");
-            this.findItem(item).ifPresent(slotPos -> {
-                set(slotPos, null);
-            });
+            this.findItem(item).ifPresent(slotPos -> set(slotPos, null));
         }
 
         @Override

@@ -287,11 +287,11 @@ public class InventoryManager {
 
     }
 
-    class PlayerInvTask extends BukkitRunnable {
+    static class PlayerInvTask extends BukkitRunnable {
 
-        private Player player;
-        private InventoryProvider provider;
-        private InventoryContents contents;
+        private final Player player;
+        private final InventoryProvider provider;
+        private final InventoryContents contents;
 
         public PlayerInvTask(Player player, InventoryProvider provider, InventoryContents contents) {
             this.player = Objects.requireNonNull(player);

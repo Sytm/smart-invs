@@ -173,8 +173,8 @@ public class SmartInventory {
         private String id = "unknown";
         private String title = "";
         private InventoryType type = InventoryType.CHEST;
-        private Optional<Integer> rows = Optional.empty();
-        private Optional<Integer> columns = Optional.empty();
+        private int rows = 0;
+        private int columns = 0;
         private boolean closeable = true;
         private int updateFrequency = 1;
 
@@ -182,7 +182,7 @@ public class SmartInventory {
         private InventoryProvider provider;
         private SmartInventory parent;
 
-        private List<InventoryListener<? extends Event>> listeners = new ArrayList<>();
+        private final List<InventoryListener<? extends Event>> listeners = new ArrayList<>();
 
         private Builder() {
         }
@@ -203,8 +203,8 @@ public class SmartInventory {
         }
 
         public Builder size(int rows, int columns) {
-            this.rows = Optional.of(rows);
-            this.columns = Optional.of(columns);
+            this.rows = rows;
+            this.columns = columns;
             return this;
         }
 
@@ -259,11 +259,11 @@ public class SmartInventory {
             return type;
         }
 
-        public Optional<Integer> getRows() {
+        public int getRows() {
             return rows;
         }
 
-        public Optional<Integer> getColumns() {
+        public int getColumns() {
             return columns;
         }
 
@@ -306,8 +306,11 @@ public class SmartInventory {
             inv.id = this.id;
             inv.title = this.title;
             inv.type = this.type;
-            inv.rows = this.rows.orElseGet(() -> getDefaultDimensions(type).getRow());
-            inv.columns = this.columns.orElseGet(() -> getDefaultDimensions(type).getColumn());
+
+            SlotPos defaultDimensions = getDefaultDimensions(type);
+            inv.rows = this.rows == 0 ? defaultDimensions.getRow() : this.rows;
+            inv.columns = this.columns == 0 ? defaultDimensions.getColumn() : this.columns;
+
             inv.closeable = this.closeable;
             inv.updateFrequency = this.updateFrequency;
             inv.provider = this.provider;
