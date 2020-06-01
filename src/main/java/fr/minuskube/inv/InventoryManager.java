@@ -178,7 +178,12 @@ public class InventoryManager {
                         .filter(listener -> listener.getType() == InventoryClickEvent.class)
                         .forEach(listener -> ((InventoryListener<InventoryClickEvent>) listener).accept(e));
 
-                invContents.get(slot).ifPresent(item -> item.run(new ItemClickData(e, clickType, p, e.getCurrentItem(), slot)));
+                invContents.get(slot).ifPresent(item -> {
+                    // Either the item accepts shift-clicks, so we do not care or the click is not a shift click
+                    if (item.acceptsShiftClick() || !clickType.isShiftClick()) {
+                        item.run(new ItemClickData(e, clickType, p, e.getCurrentItem(), slot));
+                    }
+                });
 
                 // Don't update if the clicked slot is editable - prevent item glitching
                 if (!invContents.isEditable(slot)) {
