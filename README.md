@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.minuskube.inv:smart-invs:2.0.0-SNAPSHOT'
+    implementation 'de.md5lukas:smart-invs:2.0.0-SNAPSHOT'
 }
 ```
 
@@ -53,7 +53,7 @@ dependencies {
 ```
 ```xml
 <dependency>
-    <groupId>fr.minuskube.inv</groupId>
+    <groupId>de.md5lukas</groupId>
     <artifactId>smart-invs</artifactId>
     <version>2.0.0-SNAPSHOT</version>
 </dependency>
