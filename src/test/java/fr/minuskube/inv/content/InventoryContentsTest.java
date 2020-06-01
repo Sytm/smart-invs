@@ -18,6 +18,7 @@ public class InventoryContentsTest {
     private static final ItemStack TEST_ITEM = new ItemStack(Material.DIRT);
     private static final ClickableItem TEST_CLICKABLE = ClickableItem.empty(TEST_ITEM);
 
+    @SuppressWarnings("SameParameterValue")
     private SmartInventory mockInventory(int rows, int columns) {
         InventoryManager manager = mock(InventoryManager.class);
 

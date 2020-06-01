@@ -35,9 +35,9 @@ import java.util.function.Consumer;
  */
 public class ItemBuilder {
 
-    private static java.util.regex.Pattern newlinePattern = java.util.regex.Pattern.compile("\n");
+    private static final java.util.regex.Pattern newlinePattern = java.util.regex.Pattern.compile("\n");
 
-    private ItemStack stack;
+    private final ItemStack stack;
     private ItemMeta meta;
 
     /**

@@ -19,34 +19,61 @@ package fr.minuskube.inv;
 import fr.minuskube.inv.content.SlotPos;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Class that holds basic information about the click that happened
+ */
 public class ItemClickData {
 
     private final Event event;
+    private final ClickType clickType;
     private final Player player;
     private final ItemStack item;
     private final SlotPos slot;
 
-    public ItemClickData(Event event, Player player, ItemStack item, SlotPos slot) {
+    public ItemClickData(Event event, ClickType clickType, Player player, ItemStack item, SlotPos slot) {
         this.event = event;
+        this.clickType = clickType;
         this.player = player;
         this.item = item;
         this.slot = slot;
     }
 
+    /**
+     * @return The spigot event that triggered the creation of this click
+     */
     public Event getEvent() {
         return event;
     }
 
+    /**
+     * @return The type of the click that has triggered this event
+     */
+    public ClickType getClickType() {
+        return clickType;
+    }
+
+    /**
+     * @return The player who caused the click
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return The ItemStack that has been clicked
+     */
     public ItemStack getItem() {
         return item;
     }
 
+    /**
+     *
+     * @return The slot of the item that has been clicked
+     */
     public SlotPos getSlot() {
         return slot;
     }

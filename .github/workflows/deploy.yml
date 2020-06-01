@@ -2,8 +2,8 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - 'master'
+    tags:
+      - 'v*.*.*'
 
 jobs:
   deploy:
@@ -27,6 +27,14 @@ jobs:
           server_id: sytm-nexus
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            target/smart-invs-*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v1

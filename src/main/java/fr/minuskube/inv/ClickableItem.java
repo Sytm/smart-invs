@@ -30,6 +30,7 @@ public class ClickableItem {
     public static final ClickableItem NONE = empty(null);
 
     private final ItemStack item;
+    private boolean acceptShiftClick = false;
     private final Consumer<ItemClickData> consumer;
     private Predicate<Player> canSee = null, canClick = null;
     private ItemStack notVisibleFallBackItem = null;
@@ -114,6 +115,36 @@ public class ClickableItem {
     }
 
     /**
+     * Manually enable shift clicks for this particular ClickableItem instance.
+     * <br><br>
+     * Because if someone holds shift and then double-clicks an item,
+     * the shift-click listener is called for every item that is similar in the upper inventory,
+     * which might break things because the programmer does not expect one to click everything
+     * at once.
+     * <br>
+     * I also would not recommend this on a delete button (without confirmation), because it
+     * could happen that the user accidentally activates the button by double-clicking a item
+     * and whoosh the stuff is gone.
+     *
+     * @param acceptShiftClick Whether or not this item should accept shift clicks
+     * @return <code>this</code>, for chained calls
+     */
+    public ClickableItem acceptShiftClick(boolean acceptShiftClick) {
+        this.acceptShiftClick = acceptShiftClick;
+        return this;
+    }
+
+    /**
+     * Getter method for the accept shift click value.
+     *
+     * @return Whether or not this item should accept shift clicks
+     * @see #acceptShiftClick(boolean) For more information on why this exists
+     */
+    public boolean acceptsShiftClick() {
+        return acceptShiftClick;
+    }
+
+    /**
      * Sets a test to check if a player is allowed to see this item.
      * <br>
      * Note: If the player is not allowed to see the item, in the inventory this item will be empty.
@@ -125,7 +156,7 @@ public class ClickableItem {
      * </ul>
      *
      * @param canSee the test, if a player should be allowed to see this item
-     * @return <code>this</code> , for chained calls
+     * @return <code>this</code>  for chained calls
      * @see #canSee(Predicate, ItemStack) If you want to set a specific fallback item
      */
     public ClickableItem canSee(Predicate<Player> canSee) {
@@ -147,7 +178,7 @@ public class ClickableItem {
      *
      * @param canSee       the test, if a player should be allowed to see this item
      * @param fallBackItem the item that should be used, if the player is <b>not</b> allowed to see the item
-     * @return <code>this</code> , for chained calls
+     * @return <code>this</code>, for chained calls
      * @see #canSee(Predicate) If you want the slot to be empty
      */
     public ClickableItem canSee(Predicate<Player> canSee, ItemStack fallBackItem) {
@@ -162,7 +193,7 @@ public class ClickableItem {
      * If a player is not allowed to click this item, the on click handler provided at creation will not be run
      *
      * @param canClick the test, if a player should be allowed to see this item
-     * @return <code>this</code> , for chained calls
+     * @return <code>this</code>, for chained calls
      */
     public ClickableItem canClick(Predicate<Player> canClick) {
         this.canClick = canClick;

@@ -26,7 +26,7 @@ JavaDocs are available here on [GitHub Pages](https://sytm.github.io/smart-invs/
 ## Usage
 To use the SmartInvs API, either:
 - Put it in the `plugins` folder of your server, add it to your dependencies in your plugin.yml (e.g. `depend: [SmartInvs]`) and add it to the dependencies in your IDE.
-- Put it inside your plugin jar, and then call `SmartInvsPlugin.setPlugin(yourMain)` to set everything up and you are good to go
+- Put it inside your plugin jar, and then call `SmartInvsPlugin.setPlugin(yourMain)` to set everything up, and you are good to go
 
 You can download the latest version on the [Releases page](https://github.com/Sytm/smart-invs/releases) on Github.
 
@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.minuskube.inv:smart-invs:2.0.0-SNAPSHOT'
+    implementation 'de.md5lukas:smart-invs:2.0.0'
 }
 ```
 
@@ -53,9 +53,9 @@ dependencies {
 ```
 ```xml
 <dependency>
-    <groupId>fr.minuskube.inv</groupId>
+    <groupId>de.md5lukas</groupId>
     <artifactId>smart-invs</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
