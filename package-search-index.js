@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"fr.minuskube.inv"},{"l":"fr.minuskube.inv.content"},{"l":"fr.minuskube.inv.opener"},{"l":"fr.minuskube.inv.util"}]
