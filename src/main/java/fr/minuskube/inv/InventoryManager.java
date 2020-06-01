@@ -149,8 +149,11 @@ public class InventoryManager {
             ClickType clickType = e.getClick();
 
             if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR || e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                // Cancel the move action, but make sure, that we don't return here
                 e.setCancelled(true);
-                return;
+                if (!(clickType == ClickType.SHIFT_LEFT || clickType == ClickType.SHIFT_RIGHT)) {
+                    return;
+                }
             }
 
             if (e.getAction() == InventoryAction.NOTHING && clickType != ClickType.MIDDLE) {
