@@ -186,6 +186,39 @@ public interface InventoryContents {
     Optional<ClickableItem> get(SlotPos slotPos);
 
     /**
+     * If the slot at the given index is editable,
+     * the actual ItemStack present in the inventory gets returned.
+     * <br>
+     * If the slot is not editable, {@link InventoryContents#get(int)}
+     * is used internally
+     *
+     * @param index the slot index
+     * @return the found item, if there is one
+     */
+    Optional<ItemStack> getActual(int index);
+
+    /**
+     * Same as {@link InventoryContents#getActual(int)},
+     * but with a row and a column instead of the index.
+     *
+     * @param row    the row in the inventory
+     * @param column the column in the inventory
+     * @return the found item, if there is one
+     * @see InventoryContents#getActual(int)
+     */
+    Optional<ItemStack> getActual(int row, int column);
+
+    /**
+     * Same as {@link InventoryContents#getActual(int)},
+     * but with a {@link SlotPos} instead of the index.
+     *
+     * @param slotPos the slot to get the item from
+     * @return the found item, if there is one
+     * @see InventoryContents#getActual(int)
+     */
+    Optional<ItemStack> getActual(SlotPos slotPos);
+
+    /**
      * Sets the item in the inventory at the given
      * slot index.
      *
@@ -701,7 +734,7 @@ public interface InventoryContents {
             for (int row = 0; row < contents.length; row++) {
                 for (int column = 0; column < contents[0].length; column++) {
                     if (!this.get(row, column).isPresent())
-                        return Optional.of(new SlotPos(row, column));
+                        return Optional.of(SlotPos.of(row, column));
                 }
             }
 
@@ -728,6 +761,28 @@ public interface InventoryContents {
         @Override
         public Optional<ClickableItem> get(SlotPos slotPos) {
             return get(slotPos.getRow(), slotPos.getColumn());
+        }
+
+        @Override
+        public Optional<ItemStack> getActual(int index) {
+            int columnCount = this.inv.getColumns();
+
+            return getActual(index / columnCount, index % columnCount);
+        }
+
+        @Override
+        public Optional<ItemStack> getActual(int row, int column) {
+            return getActual(SlotPos.of(row, column));
+        }
+
+        @Override
+        public Optional<ItemStack> getActual(SlotPos slotPos) {
+            if (isEditable(slotPos)) {
+                Inventory bukkitInv = player.getOpenInventory().getTopInventory();
+                return Optional.of(bukkitInv.getContents()[slotPos.asIndex(this.inv.getColumns())]);
+            } else {
+                return get(slotPos).map(ClickableItem::getItem);
+            }
         }
 
         @Override
