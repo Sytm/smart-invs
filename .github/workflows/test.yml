@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - '**'
-      - '!deploy'
+      - '!master'
   pull_request:
     branches:
       - '**'
@@ -25,4 +25,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Test and Build JavaDoc
-        run: mvn verify -B -ntp --file pom.xml
+        run: mvn verify -B -ntp
